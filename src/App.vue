@@ -1,32 +1,35 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <Navbar />
     <router-view/>
+    <div v-if="loading" class="text-center">
+        <div class="spinner-border"></div>
+        <h3 class="text-dark pt-4">Loading</h3>
+    </div>
   </div>
 </template>
-
+<script>
+import Navbar from './components/Navbar.vue';
+export default {
+  name: 'app',
+  components: {
+    Navbar,
+  },
+  data() {
+    return{
+      loading: true,
+    }
+  },
+  async mounted() {
+    await new Promise((r) => setTimeout(r, 2000));
+    this.loading = false;
+  },
+};
+</script>
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+  background-color: rgb(153, 214, 129);
+  padding-bottom: 150px;
 }
 </style>
